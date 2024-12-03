@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Constants\ApiMessages;
 use App\Http\Services\PostService;
 use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
+use Laravel\Prompts\SearchPrompt;
 
 class PostController extends Controller
 {
@@ -129,6 +131,21 @@ class PostController extends Controller
             messageHandler(
                 ApiMessages::MSG_STATUS_CHANGED_SUCCESSFULLY,
                 Resources::RES_POST
+            )
+        );
+    }
+
+    public function search(SearchRequest $request)
+    {
+        $result = $this->postService->search($request->input('word'));
+
+        $response = PostResource::collection($result);
+
+        return $this->okResponse(
+            $response,
+            messageHandler(
+                ApiMessages::MSG_FETCHED_SUCCESSFULLY,
+                Resources::RES_POSTS
             )
         );
     }

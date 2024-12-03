@@ -32,6 +32,10 @@ class PostResource extends JsonResource
                 $data['published_at'] = $this->published_at;
             }
         }
+        if($request->routeIs('post.search'))
+        {
+            $data['title'] = $this->title;
+        }
 
         return $data;
     }

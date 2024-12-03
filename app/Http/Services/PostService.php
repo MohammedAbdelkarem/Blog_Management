@@ -54,4 +54,9 @@ class PostService extends BaseService
             'status' => StatusEnum::PUBLISHED
         ]);
     }
+
+    public function search($word)
+    {
+        return Post::where('title','LIKE',"%{$word}%")->get();
+    }
 }
