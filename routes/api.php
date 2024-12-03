@@ -20,8 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('post')->controller(PostController::class)->group(function(){
-    // Route::get('get/published' , 'getPublishedPosts')->name('post.get.published');
-    // Route::put('update/status/{postId}' , 'changeStatus')->name('post.update.status');
+    Route::get('get/published' , 'getPublishedPosts')->name('post.get.published');
+    Route::put('update/status/{postId}' , 'changeStatus')->name('post.update.status');
     Route::get('search' , 'search')->name('post.search');
 });
 Route::apiResource('post', PostController::class);
